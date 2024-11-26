@@ -1,0 +1,15 @@
+{% extends "main.html" %}
+
+{% block content %}
+
+<h1>Room</h1>
+
+<div>
+    {% for room in rooms %}
+
+        <div>{{room.id}}. {{room.name}}</div><br>
+
+    {% endfor %}
+</div>
+
+{% endblock content %}

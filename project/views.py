@@ -20,7 +20,7 @@ def room(request, pk):
     context = {'room': room}
     return render(request, 'project/room.html', context)
 
-def rooms_list(request):
+def home(request):
     rooms = Room.objects.all()
     context = {'rooms': rooms}
-    return render(request, 'project/roomlist.html', context)
+    return render(request, 'project/home.html', context)

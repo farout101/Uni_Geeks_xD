@@ -24,3 +24,7 @@ def home(request):
     rooms = Room.objects.all()
     context = {'rooms': rooms}
     return render(request, 'project/home.html', context)
+
+def createRoom(request):
+    context = {}
+    return render(request, 'project/room_form.html', context)

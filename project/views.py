@@ -1,6 +1,10 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from . models import Room, Topic, User
+from . models import Room, Topic
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
 from . forms import RoomForm
 
 # rooms = [
@@ -17,9 +21,23 @@ def loginPage(request):
         
         try:
             user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            messages.error(request, "User does not exist")
+            
+        user = authenticate(request, username=username, password=password)
         
-        context = {'email': email, 'password': password}
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+        else:
+            messages.error(request, "Username or password does not exist")
+    
+    context = {}
     return render(request, 'project/login_register.html', context)
+
+def logoutUser(request):
+    logout(request) # We don't need to provide the user cuz it's just deleting the token.
+    return redirect('home')
 
 def room(request, pk):
     rooms = Room.objects.all()
@@ -44,6 +62,7 @@ def home(request):
     context = {'rooms': rooms, 'topics': topics, 'room_count': room_count}    
     return render(request, 'project/home.html', context)
 
+@login_required(Login_required='/login') # I stil need to figure it out in the new version
 def createRoom(request):
     form = RoomForm()
     if request.method == "POST":

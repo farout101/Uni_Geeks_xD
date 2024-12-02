@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
-from . models import Room
+from django.db.models import Q
+from . models import Room, Topic, User
 from . forms import RoomForm
 
 # rooms = [
@@ -8,8 +9,17 @@ from . forms import RoomForm
 #     {'id':3, 'name':'useless php'}
 # ]
 
-def home(request):
-    return render(request, 'project/home.html')
+
+def loginPage(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        
+        try:
+            user = User.objects.get(username=username)
+        
+        context = {'email': email, 'password': password}
+    return render(request, 'project/login_register.html', context)
 
 def room(request, pk):
     rooms = Room.objects.all()
@@ -22,8 +32,16 @@ def room(request, pk):
     return render(request, 'project/room.html', context)
 
 def home(request):
-    rooms = Room.objects.all()
-    context = {'rooms': rooms}
+    q = request.GET.get('q') if request.GET.get('q') else ''
+    rooms = Room.objects.filter(
+        Q(topic__name__icontains=q) |
+        Q(description__icontains=q) |
+        Q(name__icontains=q)
+    )
+    topics = Topic.objects.all()
+    room_count = rooms.count()
+    
+    context = {'rooms': rooms, 'topics': topics, 'room_count': room_count}    
     return render(request, 'project/home.html', context)
 
 def createRoom(request):
@@ -53,5 +71,4 @@ def deleteRoom(request, pk):
     room = Room.objects.get(id=pk)
     if request.method == 'POST':
         room.delete()
-        return redirect('home')
-    return render(request, 'project/delete.html', {'obj': room})
+    return render(request, 'project/delete.html', {'obj':room})

@@ -7,13 +7,14 @@ from . models import Room, Topic
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from . forms import RoomForm
+from django.contrib.auth.forms import UserCreationForm
 
 def loginPage(request):
     page = 'login'
     if request.user.is_authenticated:
         return redirect('home')
     if request.method == "POST":
-        username = request.POST.get('username')
+        username = request.POST.get('username', '').lower()
         password = request.POST.get('password')
         try:
             user = User.objects.get(username=username)
@@ -33,8 +34,18 @@ def logoutUser(request):
     return redirect('home')
 
 def registerPage(request):
-    page = 'register'
-    context = {'page': page}
+    form = UserCreationForm()
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user =  form.save(commit=False)
+            user.username = user.username.lower()
+            user.save()
+            login(request, user)
+            return redirect('home')
+        else:
+            messages.error(request, "An error has occured during registration, try again")
+    context = {'form': form} 
     return render(request, 'project/login_register.html', context)
 
 def room(request, pk):
@@ -44,7 +55,8 @@ def room(request, pk):
         if i.id == int(pk):
             room = i
             break
-    context = {'room': room}
+    room_messages = room.message_set.all().order_by('-created')
+    context = {'room': room, 'room_messages': room_messages}
     return render(request, 'project/room.html', context)
 
 def home(request):

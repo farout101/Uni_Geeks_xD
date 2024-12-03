@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -62,7 +63,7 @@ def home(request):
     context = {'rooms': rooms, 'topics': topics, 'room_count': room_count}    
     return render(request, 'project/home.html', context)
 
-@login_required(Login_required='/login') # I stil need to figure it out in the new version
+@login_required(login_url='login') # I stil need to figure it out in the new version
 def createRoom(request):
     form = RoomForm()
     if request.method == "POST":
@@ -74,9 +75,14 @@ def createRoom(request):
     context = {'form' : form }
     return render(request, 'project/room_form.html', context)
 
+@login_required(login_url='login')
 def updateRoom(request, pk):
     room = Room.objects.get(id=pk)
     form = RoomForm(instance=room)
+    
+    if request.user != room.user:
+        return HttpResponse("You are not allowed here")
+    
     if request.method == "POST":
         form = RoomForm(request.POST, instance=room)
         if form.is_valid():
@@ -86,6 +92,7 @@ def updateRoom(request, pk):
     context = {'form' : form }
     return render(request, 'project/room_form.html', context)
 
+@login_required(login_url='login')
 def deleteRoom(request, pk):
     room = Room.objects.get(id=pk)
     if request.method == 'POST':

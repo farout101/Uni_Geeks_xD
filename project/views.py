@@ -8,37 +8,34 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from . forms import RoomForm
 
-# rooms = [
-#     {'id':1, 'name':'Lets learn python'},
-#     {'id':2, 'name':'shitty java'},
-#     {'id':3, 'name':'useless php'}
-# ]
-
-
 def loginPage(request):
+    page = 'login'
+    if request.user.is_authenticated:
+        return redirect('home')
     if request.method == "POST":
         username = request.POST.get('username')
         password = request.POST.get('password')
-        
         try:
             user = User.objects.get(username=username)
         except User.DoesNotExist:
             messages.error(request, "User does not exist")
-            
         user = authenticate(request, username=username, password=password)
-        
         if user is not None:
             login(request, user)
             return redirect('home')
         else:
             messages.error(request, "Username or password does not exist")
-    
-    context = {}
+    context = {'page': page}
     return render(request, 'project/login_register.html', context)
 
 def logoutUser(request):
     logout(request) # We don't need to provide the user cuz it's just deleting the token.
     return redirect('home')
+
+def registerPage(request):
+    page = 'register'
+    context = {'page': page}
+    return render(request, 'project/login_register.html', context)
 
 def room(request, pk):
     rooms = Room.objects.all()
@@ -59,7 +56,6 @@ def home(request):
     )
     topics = Topic.objects.all()
     room_count = rooms.count()
-    
     context = {'rooms': rooms, 'topics': topics, 'room_count': room_count}    
     return render(request, 'project/home.html', context)
 
@@ -71,7 +67,6 @@ def createRoom(request):
         if form.is_valid():
             form.save()
             return redirect('home')
-        
     context = {'form' : form }
     return render(request, 'project/room_form.html', context)
 
@@ -79,22 +74,21 @@ def createRoom(request):
 def updateRoom(request, pk):
     room = Room.objects.get(id=pk)
     form = RoomForm(instance=room)
-    
-    if request.user != room.user:
+    if request.user != room.host: # the request has the user and the room has the host don't miss it
         return HttpResponse("You are not allowed here")
-    
     if request.method == "POST":
         form = RoomForm(request.POST, instance=room)
         if form.is_valid():
             form.save()
             return redirect('home')
-        
     context = {'form' : form }
     return render(request, 'project/room_form.html', context)
 
 @login_required(login_url='login')
 def deleteRoom(request, pk):
     room = Room.objects.get(id=pk)
+    if request.user != room.host: # the request has the user and the room has the host don't miss it
+        return HttpResponse("You are not allowed here")
     if request.method == 'POST':
         room.delete()
     return render(request, 'project/delete.html', {'obj':room})

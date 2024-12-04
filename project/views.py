@@ -112,6 +112,7 @@ def deleteRoom(request, pk):
         return HttpResponse("You are not allowed here")
     if request.method == 'POST':
         room.delete()
+        return redirect('home')
     return render(request, 'project/delete.html', {'obj':room})
 
 @login_required(login_url='login')
@@ -121,4 +122,5 @@ def deleteMessage(request, pk):
         return HttpResponse("You are not allowed here")
     if request.method == 'POST':
         message.delete()
+        return redirect('room', pk=message.room.id)
     return render(request, 'project/delete.html', {'obj':message})

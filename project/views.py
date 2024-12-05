@@ -55,7 +55,7 @@ def room(request, pk):
         if i.id == int(pk):
             room = i
             break
-    room_messages = room.message_set.all().order_by('-created')
+    room_messages = room.message_set.all()
     participants = room.participants.all()
     if request.method == "POST":
         message = Message.objects.create(
@@ -77,7 +77,8 @@ def home(request):
     )
     topics = Topic.objects.all()
     room_count = rooms.count()
-    context = {'rooms': rooms, 'topics': topics, 'room_count': room_count}    
+    room_messages = Message.objects.filter(Q(room__name__icontains=q))
+    context = {'rooms': rooms, 'topics': topics, 'room_count': room_count, 'room_messages': room_messages}    
     return render(request, 'project/home.html', context)
 
 @login_required(login_url='login') # I stil need to figure it out in the new version

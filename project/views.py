@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -49,23 +49,29 @@ def registerPage(request):
     return render(request, 'project/login_register.html', context)
 
 def room(request, pk):
+    try:
+        pk = int(pk)
+    except ValueError:
+        return HttpResponseBadRequest("Invalid room ID")
     rooms = Room.objects.all()
     room = None
     for i in rooms:
-        if i.id == int(pk):
+        if i.id == pk:
             room = i
             break
+    if room is None:
+        return HttpResponseBadRequest("Room not found")
     room_messages = room.message_set.all()
     participants = room.participants.all()
     if request.method == "POST":
         message = Message.objects.create(
-            user = request.user,
-            room = room,
-            body = request.POST.get('body')
+            user=request.user,
+            room=room,
+            body=request.POST.get('body')
         )
         room.participants.add(request.user)
         return redirect('room', pk=room.id)
-    context = {'room': room, 'room_messages': room_messages, 'participants' : participants}
+    context = {'room': room, 'room_messages': room_messages, 'participants': participants}
     return render(request, 'project/room.html', context)
 
 def home(request):
@@ -92,28 +98,36 @@ def userProfile(reqeust, pk):
 @login_required(login_url='login') # I stil need to figure it out in the new version
 def createRoom(request):
     form = RoomForm()
+    topics = Topic.objects.all()
     if request.method == "POST":
-        form = RoomForm(request.POST)
-        if form.is_valid():
-            room = form.save(commit=False)
-            room.host = request.user
-            room.save()
-            return redirect('home')
-    context = {'form' : form }
+        topic_name = request.POST.get('topic')
+        topic, created = Topic.objects.get_or_create(name=topic_name)
+        Room.objects.create(
+            host = request.user,
+            topic = topic,
+            name = request.POST.get('name'),
+            description = request.POST.get('description')
+        )
+        return redirect('home')
+    context = {'form':form, 'topics': topics}
     return render(request, 'project/room_form.html', context)
 
 @login_required(login_url='login')
 def updateRoom(request, pk):
     room = Room.objects.get(id=pk)
     form = RoomForm(instance=room)
+    topics = Topic.objects.all()
     if request.user != room.host: # the request has the user and the room has the host don't miss it
         return HttpResponse("You are not allowed here")
     if request.method == "POST":
-        form = RoomForm(request.POST, instance=room)
-        if form.is_valid():
-            form.save()
-            return redirect('home')
-    context = {'form' : form }
+        topic_name = request.POST.get('topic')
+        topic, created = Topic.objects.get_or_create(name=topic_name)
+        room.name = request.POST.get('name')
+        room.topic = topic
+        room.description = request.POST.get('description')
+        room.save()
+        return redirect('home')
+    context = {'form' : form, 'topics': topics, 'room':room}
     return render(request, 'project/room_form.html', context)
 
 @login_required(login_url='login')

@@ -149,3 +149,8 @@ def deleteMessage(request, pk):
         message.delete()
         return redirect('room', pk=message.room.id)
     return render(request, 'project/delete.html', {'obj':message})
+
+@login_required(login_url='login')
+def updateUser(request):
+    context = {}
+    return render(request, 'project/update_user.html', context)

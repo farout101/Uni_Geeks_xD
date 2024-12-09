@@ -16,7 +16,7 @@
                 ></path>
               </svg>
             </a>
-            <h3>Study Room</h3>
+            <h3>Discussion Room</h3>
           </div>
 
           {% if room.host == request.user %}
@@ -63,7 +63,7 @@
           <div class="room__header scroll">
             <div class="room__info">
               <h3>{{room.name}}</h3>
-              <span>{{room.created | timesince}} ago</span>
+              <span>Created {{room.created | timesince}} ago</span>
             </div>
             <div class="room__hosted">
               <p>Hosted By</p>
@@ -79,7 +79,7 @@
               rerum consectetur, voluptatem repudiandae eum ea porro cupiditate provident nulla, deserunt, ab ipsum
               corporis laboriosam deleniti molestias?
             </div> {% endcomment %}
-            <span class="room__topics">{{room.topic}}</span>
+          <span class="room__topics">{{room.topic}}</span>
           </div>
           <div class="room__conversation">
             <div class="threads scroll">
@@ -147,5 +147,22 @@
       <!--  End -->
     </div>
   </main>
+  <footer style="background-color: var(--color-dark); color: var(--color-light); padding: 25px 0; margin: 20px 0 0 0;">
+    <div class="container">
+        <div class="footer-content" style="display: flex; justify-content: space-between; align-items: center;">
+            <div class="footer-left">
+                <p>&copy; 2024 Uni_Geeks. All rights reserved.</p>
+            </div>
+            <div class="footer-right">
+                <ul class="socials" style="list-style: none; display: flex; gap: 10px; padding: 0; margin: 0;">
+                    <li><a href="#" style="color: var(--color-light); text-decoration: none;"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="#" style="color: var(--color-light); text-decoration: none;"><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="#" style="color: var(--color-light); text-decoration: none;"><i class="fa fa-instagram"></i></a></li>
+                    <li><a href="#" style="color: var(--color-light); text-decoration: none;"><i class="fa fa-linkedin"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
   <script src="script.js"></script>
 {% endblock content %}

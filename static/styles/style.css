@@ -12,7 +12,7 @@
   --color-bg: #1c2833;
   --color-success: #27ae60;
   --color-error: #e74c3c;
-  --color-hover: rgb(220, 102, 6); /* Hover color */
+  --color-hover: #f4a003; /* Hover color */
   --color-background: #eceff1; /* Background color */
   --color-border: #cfd8dc; /* Border color */
 }
@@ -104,6 +104,7 @@ a {
 
 .btn:hover {
   opacity: 0.9;
+  color: var(--color-hover);
 }
 
 .btn--dark {
@@ -203,7 +204,7 @@ a {
 
 .scroll::-webkit-scrollbar {
   width: 0.6rem;
-  background-color: rgb(41, 41, 46);
+  background-color: transparent;
 }
 
 .scroll::-webkit-scrollbar-thumb {
@@ -998,7 +999,6 @@ room__topLeft svg {
     padding-left: 2.5rem;
     padding-right: 2rem;
     height: 80.5vh;
-    overflow-y: auto;
     padding-bottom: 0;
   }
 }
@@ -1046,7 +1046,8 @@ room__topLeft svg {
 
 .room__conversation {
   margin-top: 1rem;
-  margin-bottom: 4rem;
+  margin-bottom: 10rem;
+  padding-bottom: 6rem;
   height: 64%;
 }
 
@@ -1101,7 +1102,9 @@ room__topLeft svg {
 }
 
 .room__message {
-  padding: 2rem;
+  padding-bottom: 2rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
   position: absolute;
   z-index: 111;
   bottom: 0;
@@ -1120,7 +1123,7 @@ room__topLeft svg {
   height: 4.5rem;
   width: 100%;
   margin-top: -1rem;
-  padding: 1.2rem;
+  padding: 2rem;
   font-size: 1.4rem;
   font-weight: 500;
   position: relative;
@@ -1144,7 +1147,7 @@ room__topLeft svg {
 .participants__list {
   padding: 2rem;
   height: 82.5vh;
-  overflow-y: scroll;
+  overflow-y: auto;
   padding-bottom: 0;
 }
 

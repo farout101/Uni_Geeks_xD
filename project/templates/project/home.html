@@ -2,6 +2,20 @@
 
 {% block content %}
 
+<style>
+  .scrollable-container {
+    max-height: 500px; /* Set the desired height */
+    overflow-y: auto;
+    border-radius: 8px; /* Add rounded corners */
+  }
+  
+  /* Hide scrollbar but keep scroll functionality */
+  .scrollable-container::-webkit-scrollbar {
+    width: 0;
+    background: transparent; /* Optional: just to hide the scrollbar */
+  }
+</style>
+
   <main class="layout layout--3">
     <div class="container">
 
@@ -29,7 +43,7 @@
           </div>
         </div>
 
-        <div class="roomList__header">
+        {% comment %} <div class="roomList__header">
           <div>
             <h2>Discussion Rooms</h2>
             <p>{{room_count}} Rooms available</p>
@@ -43,15 +57,18 @@
             </svg>
             Create Room
           </a>
-        </div>
+        </div> {% endcomment %}
 
-        {% include "project/feed_component.html" %}
+        <div class="scrollable-container" style="max-height: 500px; overflow-y: auto; border-radius: 8px;">
+          {% include "project/feed_component.html" %}
+        </div>
 
       </div>
       <!-- Room List End -->
-
       <!-- Activities Start -->
-      {% include "project/activity_component.html" %}
+      <div class="scrollable-container" style="max-height: 500px; overflow-y: auto; border-radius: 8px;">
+        {% include "project/activity_component.html" %}
+      </div>
       <!-- Activities End -->
     </div>
   </main>

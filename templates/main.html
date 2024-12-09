@@ -1,5 +1,10 @@
 <!DOCTYPE html>
-{% load static %}
+{% load static %}  
+<style>
+  .footer-content {
+    padding-top: 20px; /* Adjust the value as needed */
+  }
+</style>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -7,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="{% static 'styles/style.css' %}" />
-    <title>StudyBuddy - Find study partners around the world!</title>
+    <title>Uni_Geeks - Let's code together around the Campus!</title>
   </head>
 
   <body>
@@ -25,6 +30,17 @@
     {% block content %}
     
     {% endblock content %}
+    <footer>
+      <div class="footer-content" style="padding-top: 20px;"> <!-- Add padding here -->
+        <p>&copy; 2024 Uni_Geeks. All rights reserved.</p>
+        <ul class="socials">
+          <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+          <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+          <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+          <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+        </ul>
+      </div>
+    </footer>
     <script src="{% static 'js/script.js' %}"></script>
   </body>
 </html>

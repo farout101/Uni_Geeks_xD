@@ -1,9 +1,10 @@
+{% load static %}
 {% for room in rooms %}
 <div class="roomListRoom">
   <div class="roomListRoom__header">
       <a href="{% url 'user-profile' room.host.id %}" class="roomListRoom__author">
         <div class="avatar avatar--small">
-          <img src="https://randomuser.me/api/portraits/women/11.jpg" />
+          <img src="{% static 'images/avatar.svg' %}" />
         </div>
         <span>{{room.host.username}}</span>
       </a>

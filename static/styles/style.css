@@ -1,17 +1,20 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap");
 
 :root {
-  --color-main: #71c6dd;
-  --color-main-light: #e1f6fb;
-  --color-dark: #3f4156;
-  --color-dark-medium: #51546e;
-  --color-dark-light: #696d97;
-  --color-light: #e5e5e5;
-  --color-gray: #8b8b8b;
-  --color-light-gray: #b2bdbd;
-  --color-bg: #2d2d39;
-  --color-success: #5dd693;
-  --color-error: #fc4b0b;
+  --color-main: #b0bec5; /* Light metallic color */
+  --color-main-light: #ffb3a7;
+  --color-dark: #2c3e50;
+  --color-dark-medium: #34495e;
+  --color-dark-light: #78909c; /* Darker metallic color */
+  --color-light: #ecf0f1;
+  --color-gray: #95a5a6;
+  --color-light-gray: #bdc3c7;
+  --color-bg: #1c2833;
+  --color-success: #27ae60;
+  --color-error: #e74c3c;
+  --color-hover: #90a4ae; /* Hover color */
+  --color-background: #eceff1; /* Background color */
+  --color-border: #cfd8dc; /* Border color */
 }
 
 /*========== base styles ==========*/
@@ -672,7 +675,7 @@ a {
   font-weight: 500;
 }
 
-.roomListRoom__actions svg {
+roomListRoom__actions svg {
   fill: var(--color-main);
 
   width: 1.6rem;
@@ -948,7 +951,7 @@ a {
   color: var(--color-light);
 }
 
-.room__topLeft svg {
+room__topLeft svg {
   width: 1.6rem;
   height: 1.6rem;
   fill: var(--color-light);

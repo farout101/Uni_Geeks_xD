@@ -12,7 +12,7 @@
   --color-bg: #1c2833;
   --color-success: #27ae60;
   --color-error: #e74c3c;
-  --color-hover: #90a4ae; /* Hover color */
+  --color-hover: rgb(220, 102, 6); /* Hover color */
   --color-background: #eceff1; /* Background color */
   --color-border: #cfd8dc; /* Border color */
 }

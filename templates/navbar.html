@@ -21,7 +21,7 @@
         <!-- Logged In -->
         {% if request.user.is_authenticated %}
             <div class="header__user">
-            <a href="{% url 'update-user' %}">
+            <a href="{% url 'room_by_username' request.user.username %}">
                 <div class="avatar avatar--medium active">
                 <img src="{% static 'images/avatar.svg' %}" />
                 </div>

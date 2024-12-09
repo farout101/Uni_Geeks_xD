@@ -87,13 +87,13 @@ def home(request):
     context = {'rooms': rooms, 'topics': topics, 'room_count': room_count, 'room_messages': room_messages}    
     return render(request, 'project/home.html', context)
 
-def userProfile(reqeust, pk):
+def userProfile(request, pk):
     user = User.objects.get(id=pk)
     rooms = user.room_set.all()
     room_messages = user.message_set.all()
-    topics = Topic.objects.all()[0:6]
-    context = {'user':user, 'rooms':rooms, 'room_messages': room_messages, 'topics': topics}
-    return render(reqeust, 'project/profile.html', context)
+    topics = Topic.objects.filter(room__host=user).distinct()
+    context = {'user': user, 'rooms': rooms, 'room_messages': room_messages, 'topics': topics}
+    return render(request, 'project/profile.html', context)
 
 @login_required(login_url='login') # I stil need to figure it out in the new version
 def createRoom(request):
@@ -164,7 +164,7 @@ def updateUser(request):
 
 def topicPage(request):
     q = request.GET.get('q') if request.GET.get('q') else ''
-    topics = Topic.objects.filter(name__icontains=q)
+    topics = Topic.objects.filter(name__icontains=q).order_by('name')
     context = {'topics': topics}
     return render(request, 'project/topics.html', context)
 
@@ -172,3 +172,9 @@ def activityPage(request):
     room_messages = Message.objects.all()
     context = {'room_messages': room_messages}
     return render(request, 'project/activity.html', context)
+
+def roomByUsername(request, username):
+    user = User.objects.get(username=username)
+    rooms = Room.objects.filter(host=user)
+    context = {'rooms': rooms, 'user': user}
+    return render(request, 'project/room_by_username.html', context)

@@ -1169,3 +1169,32 @@ room__topLeft svg {
   color: var(--color-main);
   font-weight: 1.4rem;
 }
+
+.footer {
+  background-color: var(--color-dark);
+  color: var(--color-light);
+  padding: 25px 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.footer .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer .socials {
+  list-style: none;
+  display: flex;
+  gap: 10px;
+  padding: 0;
+  margin: 0;
+}
+
+.footer .socials li a {
+  color: var(--color-light);
+  text-decoration: none;
+}

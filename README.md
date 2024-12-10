@@ -1,6 +1,6 @@
-# Study_Pal
+# Uni_Geeks
 
-Study_Pal is a web application designed to help students collaborate and share resources. Users can create rooms, participate in discussions, and share messages. The application also includes user profiles and topics to organize discussions.
+Uni_Geeks is a web application designed to help students collaborate and share resources. Users can create rooms, participate in discussions, and share messages. The application also includes user profiles and topics to organize discussions.
 
 ## Features
 
@@ -22,8 +22,8 @@ Study_Pal is a web application designed to help students collaborate and share r
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/yourusername/Study_Pal.git
-    cd Study_Pal
+    git clone https://github.com/farout101/Uni_Geeks.git
+    cd Uni_Geeks
     ```
 
 2. Create a virtual environment and activate it:

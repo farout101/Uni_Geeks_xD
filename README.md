@@ -63,9 +63,9 @@ Uni_Geeks is a web application designed to help students collaborate and share r
 - `project/templates/`: Contains the HTML templates for the application.
 - `project/static/`: Contains the static files (CSS, JavaScript, images) for the application.
 
-## API implementation
+## API Implementation
 
-We are planning to develop a comprehensive RESTful API using Django REST Framework (DRF) to enhance the functionality and accessibility of Uni_Geeks. The API will include the following endpoints:
+I am planning to develop a comprehensive RESTful API using Django REST Framework (DRF) to enhance the functionality and accessibility of Uni_Geeks. The API will include the following endpoints:
 
 ### Authentication
 
@@ -104,7 +104,7 @@ We are planning to develop a comprehensive RESTful API using Django REST Framewo
 - `PUT /api/topics/{id}/`: Update a specific topic by ID.
 - `DELETE /api/topics/{id}/`: Delete a specific topic by ID.
 
-These endpoints will allow developers to integrate Uni_Geeks with other applications and services, providing a seamless experience for users. Stay tuned for updates as we continue to develop and enhance our API.
+These endpoints will allow developers to integrate Uni_Geeks with other applications and services, providing a seamless experience for users. Stay tuned for updates as I continue to develop and enhance the API.
 
 ## Models
 

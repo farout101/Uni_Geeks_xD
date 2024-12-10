@@ -63,6 +63,51 @@ Uni_Geeks is a web application designed to help students collaborate and share r
 - `project/templates/`: Contains the HTML templates for the application.
 - `project/static/`: Contains the static files (CSS, JavaScript, images) for the application.
 
+## Topic
+
+## Future API Plans
+
+We are planning to develop a comprehensive RESTful API using Django REST Framework (DRF) to enhance the functionality and accessibility of Uni_Geeks. The API will include the following endpoints:
+
+### Authentication
+
+- `POST /api/auth/login/`: Authenticate a user and return a token.
+- `POST /api/auth/register/`: Register a new user.
+- `POST /api/auth/logout/`: Log out the authenticated user.
+
+### User
+
+- `GET /api/users/`: Retrieve a list of users.
+- `GET /api/users/{id}/`: Retrieve a specific user by ID.
+- `PUT /api/users/{id}/`: Update a specific user by ID.
+- `DELETE /api/users/{id}/`: Delete a specific user by ID.
+
+### Room
+
+- `GET /api/rooms/`: Retrieve a list of rooms.
+- `POST /api/rooms/`: Create a new room.
+- `GET /api/rooms/{id}/`: Retrieve a specific room by ID.
+- `PUT /api/rooms/{id}/`: Update a specific room by ID.
+- `DELETE /api/rooms/{id}/`: Delete a specific room by ID.
+
+### Message
+
+- `GET /api/messages/`: Retrieve a list of messages.
+- `POST /api/messages/`: Create a new message.
+- `GET /api/messages/{id}/`: Retrieve a specific message by ID.
+- `PUT /api/messages/{id}/`: Update a specific message by ID.
+- `DELETE /api/messages/{id}/`: Delete a specific message by ID.
+
+### Topic
+
+- `GET /api/topics/`: Retrieve a list of topics.
+- `POST /api/topics/`: Create a new topic.
+- `GET /api/topics/{id}/`: Retrieve a specific topic by ID.
+- `PUT /api/topics/{id}/`: Update a specific topic by ID.
+- `DELETE /api/topics/{id}/`: Delete a specific topic by ID.
+
+These endpoints will allow developers to integrate Uni_Geeks with other applications and services, providing a seamless experience for users. Stay tuned for updates as we continue to develop and enhance our API.
+
 ## Models
 
 ### User

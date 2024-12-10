@@ -63,9 +63,7 @@ Uni_Geeks is a web application designed to help students collaborate and share r
 - `project/templates/`: Contains the HTML templates for the application.
 - `project/static/`: Contains the static files (CSS, JavaScript, images) for the application.
 
-## Topic
-
-## Future API Plans
+## API implementation
 
 We are planning to develop a comprehensive RESTful API using Django REST Framework (DRF) to enhance the functionality and accessibility of Uni_Geeks. The API will include the following endpoints:
 
